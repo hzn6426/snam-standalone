@@ -26,6 +26,7 @@
 <hr/>
 <h2>使用方式：</h2>
 只需要在service实现类中配置以下两个注解，剩下的交给Snapper
+
 ```java
 @Action(value = "ORDER_SEARCH")
 @ActionConnect(value = {"selectList","selectCount"})
