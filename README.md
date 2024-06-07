@@ -24,6 +24,21 @@
     <li>接入日志 管理第三方接入系统的日志，包含请求IP、来源系统、浏览器、请求信息、错误信息等</li>
 </ul>
 <hr/>
+<h2>前端启动：</h2>
+修改config/proxy.js
+
+```javascript
+dev: {
+    '/authority/': {
+      target: 'http://127.0.0.1:8090/',
+      changeOrigin: true,
+      pathRewrite: {
+         'authority': 'api',
+      },
+    },
+  },
+```
+
 <h2>使用方式：</h2>
 只需要在service实现类中配置以下两个注解，剩下的交给Snapper
 
