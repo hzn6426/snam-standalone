@@ -33,11 +33,21 @@ dev: {
       target: 'http://127.0.0.1:8090/',
       changeOrigin: true,
       pathRewrite: {
-         'authority': 'api',
-      },
-    },
-  },
+         'authority': 'api'
+      }
+    }
+  }
 ```
+
+<h2>安装依赖jar包</h2>
+执行maven命令(建议Maven版本为3.6.0，最新Maven(3.9)版本不能正常编译) 安装依赖的jar包到本地库
+
+```shell
+mvn initialize
+```
+
+<h2>启动项目</h2>
+打开项目目录下com.baomibing.SnamServerBootstrap.java文件，执行main方法即可(右键debug...)
 
 <h2>使用方式：</h2>
 只需要在service实现类中配置以下两个注解，剩下的交给Snapper

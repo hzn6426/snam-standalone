@@ -150,6 +150,11 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven-install-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -166,10 +171,187 @@
         <artifactId>maven-resources-plugin</artifactId>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <executions>
+
+          <execution>
+            <id>install-tool</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-tool-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-tool</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-authority-security-standalone</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-authority-security-standalone-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-authority-security-standalone</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-authority-standalone-starter</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-authority-standalone-starter-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-authority-standalone-starter</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-cache-starter</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-cache-starter-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-cache-starter</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-core-starter</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-core-starter-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-core-starter</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-log-starter</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-log-starter-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-log-starter</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-orm-starter</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-orm-starter-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-orm-starter</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-web-starter</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-web-starter-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-web-starter</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>install-email</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/snapper-email-3.0.9.jar</file>
+              <groupId>com.baomibing</groupId>
+              <artifactId>snapper-email</artifactId>
+              <version>${snapper-cloud.version}</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
   <dependencies>
+
+    <dependency>
+      <groupId>com.baomibing</groupId>
+      <artifactId>snapper-orm-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baomibing</groupId>
+      <artifactId>snapper-log-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baomibing</groupId>
+      <artifactId>snapper-email</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baomibing</groupId>
+      <artifactId>snapper-web-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.alibaba.cloud</groupId>
+          <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
 
     <dependency>
       <groupId>com.baomibing</groupId>
@@ -195,6 +377,50 @@
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-tool</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-cache-starter</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-log-starter</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-email</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-core-starter</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-orm-starter</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.baomibing</groupId>
+        <artifactId>snapper-web-starter</artifactId>
+        <version>${snapper-cloud.version}</version>
+      </dependency>
+
 
       <dependency>
         <groupId>com.baomibing</groupId>
