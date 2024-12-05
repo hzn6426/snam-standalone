@@ -2,6 +2,8 @@ package com.baomibing.config;
 
 import com.baomibing.authority.runner.AuthorizationCacheWarmUpRunner;
 import com.baomibing.authority.service.SystemService;
+import com.baomibing.cache.CacheService;
+import com.baomibing.cache.caffeine.CaffeineService;
 import com.baomibing.security.exception.AuthorityWebExceptionHandler;
 import com.baomibing.security.filter.*;
 import com.baomibing.security.service.SystemServiceImpl;
@@ -176,6 +178,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public SystemService systemService() {
         return new SystemServiceImpl();
+    }
+
+    @Bean
+    public CacheService caffeineService() {
+        return new CaffeineService();
     }
 }
 
