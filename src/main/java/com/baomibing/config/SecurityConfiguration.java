@@ -72,11 +72,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .addFilterBefore(jwtAuthenticationFilter(), FilterSecurityInterceptor.class)
             .addFilterAfter(jwtAuthorizationFilter(), CommonJwtAuthenticationFilter.class)
-//            .addFilterAfter(tenantJwtAuthenticationFilter(), CommonJwtAuthorizationFilter.class)
-//            .addFilterAfter(tenantJwtAuthorizationFilter(), CommonTenantJwtAuthenticationFilter.class)
-//            .addFilterAfter(hmacAuthenticationFilter(), CommonTenantJwtAuthorizationFilter.class)
-//            .addFilterAfter(hmacAuthorizationFilter(), CommonHmacAuthenticationFilter.class)
-//            .addFilterAfter(thirdPartAuthenticationFilter(), CommonHmacAuthenticationFilter.class)
             .addFilterAfter(commonRateLimitFilter(), CommonJwtAuthorizationFilter.class)
             .addFilterBefore(commonBlackFilter(), CommonJwtAuthenticationFilter.class)
             .addFilterBefore(filterChainExceptionHandler(), LogoutFilter.class)
@@ -100,26 +95,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public CommonJwtAuthorizationFilter jwtAuthorizationFilter() {
         return new CommonJwtAuthorizationFilter();
     }
-
-//    @Bean
-//    public CommonTenantJwtAuthenticationFilter tenantJwtAuthenticationFilter() {
-//        return new CommonTenantJwtAuthenticationFilter();
-//    }
-//
-//    @Bean
-//    public CommonTenantJwtAuthorizationFilter tenantJwtAuthorizationFilter() {
-//        return new CommonTenantJwtAuthorizationFilter();
-//    }
-//
-//    @Bean
-//    public CommonHmacAuthenticationFilter hmacAuthenticationFilter() {
-//        return new CommonHmacAuthenticationFilter();
-//    }
-//
-//    @Bean
-//    public CommonHmacAuthorizationFilter hmacAuthorizationFilter() {
-//        return new CommonHmacAuthorizationFilter();
-//    }
 
     @Bean
     public CommonBlackFilter commonBlackFilter() {
@@ -180,9 +155,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SystemServiceImpl();
     }
 
-    @Bean
-    public CacheService caffeineService() {
-        return new CaffeineService();
-    }
+//    @Bean
+//    public CacheService caffeineService() {
+//        return new CaffeineService();
+//    }
 }
 
