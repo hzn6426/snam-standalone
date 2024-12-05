@@ -21,7 +21,7 @@ import java.net.UnknownHostException;
 @EnableEncryptableProperties
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 @MapperScan({"com.baomibing.authority.mapper","com.baomibing.business.mapper"})
-@ComponentScan({ "com.baomibing.core.**", "com.baomibing.web.config","com.baomibing.authority.**","com.baomibing.security.**","com.baomibing.business.**"})
+@ComponentScan({ "com.baomibing.core.**", "com.baomibing.web.config","com.baomibing.authority.**","com.baomibing.config","com.baomibing.business.**"})
 @Slf4j
 public class SnamServerBootstrap {
 	public static void main(String[] args) throws UnknownHostException {
