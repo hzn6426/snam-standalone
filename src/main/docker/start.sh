@@ -29,6 +29,6 @@ then
 echo "remove exist name container..."
 $dockerbin ps --all|grep $appname$md  | grep -v grep | awk '{print $1}' | xargs $dockerbin rm -f
 fi;
-$dockerbin run -di --restart=always  --name $appname$md -p $appport:$appport baomibing/$appname:v$md --memory=1g --memory-swap=2g
+$dockerbin run -di --restart=always -v /usr/local/baomibing/$appname/logs:/deployments/logs --name $appname$md -p $appport:$appport baomibing/$appname:v$md --memory=1g --memory-swap=2g
 $dockerbin logs -f $appname$md &> $appname$md.log &
 
