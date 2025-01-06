@@ -1,8 +1,10 @@
 package com.baomibing.config;
 
 import com.baomibing.authority.runner.AuthorizationCacheWarmUpRunner;
+import com.baomibing.authority.service.SystemService;
 import com.baomibing.security.exception.AuthorityWebExceptionHandler;
 import com.baomibing.security.filter.*;
+import com.baomibing.security.service.SystemServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -145,6 +147,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthorizationCacheWarmUpRunner authorizationCacheWarmUpRunner() {
         return new AuthorizationCacheWarmUpRunner();
     }
+
+    @Bean
+    public SystemService systemService() {
+        return new SystemServiceImpl();
+    }
+
 
 }
 
