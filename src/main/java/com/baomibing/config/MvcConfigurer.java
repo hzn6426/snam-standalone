@@ -6,9 +6,9 @@
  */
 package com.baomibing.config;
 
+import com.baomibing.security.exception.AuthorityWebExceptionHandler;
 import com.baomibing.web.common.ReturnHandlerAdvice;
 import com.baomibing.web.convert.*;
-import com.baomibing.web.exception.GlobalExceptionHandler;
 import com.baomibing.web.interceptor.ContextHandlerInterceptor;
 import com.baomibing.web.undertow.UndertowServerFactoryCustomizer;
 import com.google.common.collect.Lists;
@@ -65,9 +65,13 @@ public class MvcConfigurer implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public GlobalExceptionHandler globalExceptionHandler() {
-		return new GlobalExceptionHandler();
+	public AuthorityWebExceptionHandler authorityWebExceptionHandler() {
+		return new AuthorityWebExceptionHandler();
 	}
+//	@Bean
+//	public GlobalExceptionHandler globalExceptionHandler() {
+//		return new GlobalExceptionHandler();
+//	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
