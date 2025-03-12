@@ -127,8 +127,10 @@ management:
 mybatis-plus:
   mapper-locations:
     - classpath:com/baomibing/authority/mapper/xml/*Mapper.xml
+    - classpath:com/baomibing/business/mapper/xml/*Mapper.xml
+    - classpath:com/baomibing/flow/mapper/xml/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.baomibing.authority.entity;
+  typeAliasesPackage: com.baomibing.authority.entity;com.baomibing.business.entity;com.baomibing.flow.entity;
   global-config:
     enable-sql-runner: true
     db-config:

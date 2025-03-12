@@ -1,18 +1,16 @@
 package com.baomibing.business.service.impl;
 
+import com.baomibing.authority.dto.GroupDto;
 import com.baomibing.authority.service.SysGroupService;
 import com.baomibing.business.constant.UserTag;
 import com.baomibing.business.dto.WmsOrderDto;
 import com.baomibing.business.entity.WmsOrder;
 import com.baomibing.business.mapper.WmsOrderMapper;
+import com.baomibing.business.service.WmsOrderService;
 import com.baomibing.core.annotation.Action;
 import com.baomibing.core.annotation.ActionConnect;
 import com.baomibing.core.common.SearchResult;
 import com.baomibing.orm.base.MBaseServiceImpl;
-import com.baomibing.business.dto.WmsOrderDto;
-import com.baomibing.business.entity.WmsOrder;
-import com.baomibing.business.mapper.WmsOrderMapper;
-import com.baomibing.business.service.WmsOrderService;
 import com.baomibing.tool.constant.Formats;
 import com.baomibing.tool.constant.Strings;
 import com.baomibing.tool.util.CharacterUtil;
@@ -23,7 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.RoundingMode;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * WmsOrderServiceImpl
@@ -47,7 +48,16 @@ public class WmsOrderServiceImpl extends MBaseServiceImpl<WmsOrderMapper, WmsOrd
                 .ge(Checker.beNotNull(v.getStart()), WmsOrder::getCreateTime, v.getStart())
                 .le(Checker.beNotNull(v.getEnd()), WmsOrder::getCreateTime, v.getEnd())
                 .eq(Checker.beNotEmpty(v.getSellerCode()), WmsOrder::getSellerCode, v.getServiceCode());
-        return search(wrapper, pageNo, pageSize);
+        SearchResult<WmsOrderDto> result = search(wrapper, pageNo, pageSize);
+        List<GroupDto> companys = groupApi.listBranchCompanines();
+        Map<String, String> groupmap = companys.stream().collect(Collectors.toMap(GroupDto::getId, GroupDto::getGroupName));
+        result.getDataList().forEach(r -> {
+            String key = groupmap.keySet().stream().filter(k -> r.getGroupId().startsWith(k)).findFirst().orElse(null);
+            if (Checker.beNotEmpty(key)) {
+                r.setCompanyName(groupmap.get(key));
+            }
+        });
+        return result;
     }
 
     @Override
@@ -58,7 +68,7 @@ public class WmsOrderServiceImpl extends MBaseServiceImpl<WmsOrderMapper, WmsOrd
         Integer count = baseMapper.getCountOrdersByMonth(dateTime.toString(Formats.DEFAULT_MONTH_FORMAT));
         String code = "O" + dateTime.toString(Formats.yearMonth) + CharacterUtil.leftPadSomeChars(String.valueOf(count), 4, "0");
         order.setMoney(order.getPrice().multiply(order.getQuantity()).setScale(2, RoundingMode.HALF_UP));
-        order.setCode(code);
+        order.setCode(code).setGroupId(order.getServiceCode().split(Strings.HASH)[0]);
 //        List<UserGroupWrapDto> userGroups = groupApi.listUserGroupByUserNos(Sets.newHashSet(order.getServiceCode(), order.getSellerCode()));
 //        Map<String, String> ugMap = userGroups.stream().collect(Collectors.toMap(UserGroupWrapDto::getUserNo, UserGroupWrapDto::getGroupId));
 //        order.setServiceCode(ugMap.get(order.getServiceCode()) + Strings.HASH + order.getServiceCode());
