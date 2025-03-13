@@ -1,17 +1,21 @@
 package com.baomibing.business.controller;
 
+import com.baomibing.bo.TokenCacheBo;
 import com.baomibing.business.dto.WmsOrderDto;
 import com.baomibing.business.dto.WmsOrderDto;
 import com.baomibing.business.service.WmsOrderService;
+import com.baomibing.cache.CacheService;
 import com.baomibing.tool.common.PageQuery;
 import com.baomibing.web.base.MBaseController;
 import com.baomibing.web.common.R;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * WmsOrderController
@@ -24,6 +28,14 @@ import java.util.List;
 public class WmsOrderController extends MBaseController<WmsOrderDto> {
 
     @Autowired private WmsOrderService orderService;
+    @Autowired private CacheService cacheService;
+
+    @GetMapping("tokens")
+    public List<TokenCacheBo> getTokens() {
+        String TOKEN_EXAMPLE_PREFIX = "TOKEN_EXAMPLE_PREFIX_";
+        Set<String> keys =cacheService.keys(TOKEN_EXAMPLE_PREFIX);
+        return cacheService.gets(Lists.newArrayList(keys), TokenCacheBo.class);
+    }
 
     @PostMapping("search")
     public R<WmsOrderDto> search(@RequestBody PageQuery<WmsOrderDto> pageQuery) {
