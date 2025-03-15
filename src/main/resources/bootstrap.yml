@@ -53,8 +53,8 @@ spring:
         max-active: 100
         max-wait: 1000
   datasource:
-    username: root
-    password: test
+#    username: root
+#    password: test
     druid:
       enable: true
       username: ${jdbc.username}
