@@ -12,6 +12,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Component
 public class TokenRunner implements ApplicationRunner {
 
@@ -21,7 +23,7 @@ public class TokenRunner implements ApplicationRunner {
     private final String passwd = "14e1b600b1fd579f47433b88e8d85291";
     private final String tag = "example";
     private final String TOKEN_EXAMPLE_PREFIX = "TOKEN_EXAMPLE_PREFIX_";
-
+    private final long SIX_MONTH = 60 * 60 *24* 30 * 6;
     @Override
     public void run(ApplicationArguments args) throws Exception {
         JwtTokenResponse response_xm = systemService.login("ximen",passwd, tag, null);
@@ -39,10 +41,10 @@ public class TokenRunner implements ApplicationRunner {
         JwtTokenResponse response_hanwen = systemService.login("hanwen",passwd, tag, null);
         TokenCacheBo hanwenCache = new TokenCacheBo().setToken(response_hanwen.getAccess_token()).setUserNo("hanwen").setUserCnName("韩文").setDescription("韩文为北京总部的销售总裁，能够看到分公司的销售数据，但看不到销售总监的数据，通过职位角色及权限范围来达到该需求，做到换人不换职");
         cacheService.deleteByKeyPrefix(TOKEN_EXAMPLE_PREFIX);
-        cacheService.set(TOKEN_EXAMPLE_PREFIX + "ximen", JSONObject.toJSONString(xmCache));
-        cacheService.set(TOKEN_EXAMPLE_PREFIX + "liuxing", JSONObject.toJSONString(liuxingCache));
-        cacheService.set(TOKEN_EXAMPLE_PREFIX + "zhangnana", JSONObject.toJSONString(nanaCache));
-        cacheService.set(TOKEN_EXAMPLE_PREFIX + "wangfeng", JSONObject.toJSONString(wangfengCache));
-        cacheService.set(TOKEN_EXAMPLE_PREFIX + "hanwen", JSONObject.toJSONString(hanwenCache));
+        cacheService.set(TOKEN_EXAMPLE_PREFIX + "ximen", JSONObject.toJSONString(xmCache), SIX_MONTH);
+        cacheService.set(TOKEN_EXAMPLE_PREFIX + "liuxing", JSONObject.toJSONString(liuxingCache), SIX_MONTH);
+        cacheService.set(TOKEN_EXAMPLE_PREFIX + "zhangnana", JSONObject.toJSONString(nanaCache), SIX_MONTH);
+        cacheService.set(TOKEN_EXAMPLE_PREFIX + "wangfeng", JSONObject.toJSONString(wangfengCache),SIX_MONTH);
+        cacheService.set(TOKEN_EXAMPLE_PREFIX + "hanwen", JSONObject.toJSONString(hanwenCache),SIX_MONTH);
     }
 }
