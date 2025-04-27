@@ -31,7 +31,7 @@
     <java.version>1.8</java.version>
 
     <lombok.version>1.18.26</lombok.version>
-    <snapper-cloud.version>3.2.3</snapper-cloud.version>
+    <snapper-cloud.version>3.2.4</snapper-cloud.version>
     <spring.boot.version>2.6.14</spring.boot.version>
     <spring.cloud.version>2021.0.4</spring.cloud.version>
   </properties>
@@ -313,6 +313,14 @@
       <id>pub</id>
       <properties>
         <env>pub</env>
+      </properties>
+    </profile>
+
+    <!-- 正式环境 -->
+    <profile>
+      <id>yun</id>
+      <properties>
+        <env>yun</env>
       </properties>
     </profile>
 

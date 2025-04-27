@@ -1,7 +1,9 @@
 package com.baomibing.business.service.impl;
 
 import com.baomibing.authority.dto.GroupDto;
+import com.baomibing.authority.dto.UserGroupDto;
 import com.baomibing.authority.service.SysGroupService;
+import com.baomibing.authority.service.SysUserGroupService;
 import com.baomibing.business.constant.UserTag;
 import com.baomibing.business.dto.WmsOrderDto;
 import com.baomibing.business.entity.WmsOrder;
@@ -16,6 +18,7 @@ import com.baomibing.tool.constant.Strings;
 import com.baomibing.tool.util.CharacterUtil;
 import com.baomibing.tool.util.Checker;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.common.collect.Sets;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,7 @@ import java.util.stream.Collectors;
 public class WmsOrderServiceImpl extends MBaseServiceImpl<WmsOrderMapper, WmsOrder, WmsOrderDto> implements WmsOrderService {
 
     @Autowired private SysGroupService groupApi;
+    @Autowired private SysUserGroupService userGroupService;
 
     @Action(value = "ORDER_SEARCH")
     @ActionConnect(value = {"selectList","selectCount"},
@@ -69,8 +73,8 @@ public class WmsOrderServiceImpl extends MBaseServiceImpl<WmsOrderMapper, WmsOrd
         String code = "O" + dateTime.toString(Formats.yearMonth) + CharacterUtil.leftPadSomeChars(String.valueOf(count), 4, "0");
         order.setMoney(order.getPrice().multiply(order.getQuantity()).setScale(2, RoundingMode.HALF_UP));
         order.setCode(code).setGroupId(order.getServiceCode().split(Strings.HASH)[0]);
-//        List<UserGroupWrapDto> userGroups = groupApi.listUserGroupByUserNos(Sets.newHashSet(order.getServiceCode(), order.getSellerCode()));
-//        Map<String, String> ugMap = userGroups.stream().collect(Collectors.toMap(UserGroupWrapDto::getUserNo, UserGroupWrapDto::getGroupId));
+//        List<UserGroupDto> userGroups = userGroupService.listByUserNos(Sets.newHashSet(order.getServiceCode(), order.getSellerCode()));
+//        Map<String, String> ugMap = userGroups.stream().collect(Collectors.toMap(UserGroupDto::getUserNo, UserGroupDto::getGroupId));
 //        order.setServiceCode(ugMap.get(order.getServiceCode()) + Strings.HASH + order.getServiceCode());
 //        order.setSellerCode(ugMap.get(order.getSellerCode()) + Strings.HASH + order.getSellerCode());
         super.saveIt(order);
