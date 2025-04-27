@@ -3,19 +3,15 @@ package com.baomibing.business.service.impl;
 import com.baomibing.authority.dto.GroupDto;
 import com.baomibing.authority.service.SysGroupService;
 import com.baomibing.authority.service.SysUserGroupService;
-import com.baomibing.business.constant.UserTag;
 import com.baomibing.business.dto.WmsItemDto;
 import com.baomibing.business.entity.WmsItem;
 import com.baomibing.business.mapper.WmsItemMapper;
+import com.baomibing.business.service.WmsItemService;
 import com.baomibing.core.annotation.Action;
 import com.baomibing.core.annotation.ActionConnect;
 import com.baomibing.core.common.Assert;
 import com.baomibing.core.common.SearchResult;
 import com.baomibing.orm.base.MBaseServiceImpl;
-import com.baomibing.business.dto.WmsItemDto;
-import com.baomibing.business.entity.WmsItem;
-import com.baomibing.business.mapper.WmsItemMapper;
-import com.baomibing.business.service.WmsItemService;
 import com.baomibing.tool.constant.Formats;
 import com.baomibing.tool.constant.Strings;
 import com.baomibing.tool.util.CharacterUtil;
@@ -42,11 +38,11 @@ public class WmsItemServiceImpl extends MBaseServiceImpl<WmsItemMapper, WmsItem,
     @Autowired private SysGroupService groupApi;
     @Autowired private SysUserGroupService userGroupApi;
 
-    @Action(value = "ITEM_SEARCH")
-    @ActionConnect(value = {"selectList","selectCount"},
-        userAuthColumn= UserTag.KEEPER + Strings.HASH + "keeper_code",
-        groupAuthColumn = UserTag.KEEPER + Strings.HASH + "keeper_code"
-    )
+//    @Action(value = "ITEM_SEARCH")
+//    @ActionConnect(value = {"selectList","selectCount"},
+//        userAuthColumn= UserTag.KEEPER + Strings.HASH + "keeper_code",
+//        groupAuthColumn = UserTag.KEEPER + Strings.HASH + "keeper_code"
+//    )
     @Override
     public SearchResult<WmsItemDto> search(WmsItemDto item, int pageNo, int pageSize) {
         SearchResult<WmsItemDto> result =  search(lambdaQuery().like(Checker.beNotEmpty(item.getCode()), WmsItem::getCode, item.getCode())

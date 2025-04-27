@@ -52,6 +52,7 @@ public class WmsOrderDto {
 
     private Date createTime;
 
+    private String companyName;
 
     private Date start;
 

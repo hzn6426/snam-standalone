@@ -55,5 +55,4 @@ public class WmsOrder extends MBaseModel {
     private String unit;
 
 
-
 }
